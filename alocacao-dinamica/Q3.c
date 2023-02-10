@@ -34,7 +34,7 @@ int main(void){
     }
  
     for(linha=0;linha<qnt_frutas;linha++){
-    printf("\nFruta: %sPreço: %.2f\n",frutas[linha],preco[linha]);
+    	printf("\nFruta: %sPreço: %.2f\n",frutas[linha],preco[linha]);
         free(frutas[linha]);
     }
  
