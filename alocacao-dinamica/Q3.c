@@ -25,12 +25,11 @@ int main(void){
     }
  
     for(linha=0;linha<qnt_frutas;linha++){
-    getchar();
-    printf("\nInforme o nome da fruta %d: ",linha+1);
-    fgets(frutas[linha],50,stdin);
-        // scanf("%[^\n]s", frutas[linha]);
-    frutas[linha] = (char*) realloc(frutas[linha],strlen(frutas[linha])*sizeof(char));
-    printf("Informe o preço da fruta %d: ",linha+1);
+        getchar();
+        printf("\nInforme o nome da fruta %d: ",linha+1);
+        fgets(frutas[linha],50,stdin);
+        frutas[linha] = (char*) realloc(frutas[linha],strlen(frutas[linha])*sizeof(char));
+        printf("Informe o preço da fruta %d: ",linha+1);
         scanf("%f", &preco[linha]);
     }
  
