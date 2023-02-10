@@ -23,6 +23,7 @@ for (index = 0; index < qnt_pessoa; index++) {
     printf("Informe a identidade da pessoa %i: \n", index + 1);
     scanf("%d", &pp[index].identidade);
     getchar();
+    printf("\n");
     imprima(&pp[index]);
     printf("\n");
     }
