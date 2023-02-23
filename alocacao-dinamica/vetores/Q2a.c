@@ -7,11 +7,9 @@
 // To do list
 
 float puxarNota(char *resposta, char *gabarito, float qnt_questoes) {
-  float nota;
-  // printf("%s\n%s\n", resposta, gabarito);
+  float nota = 0;
   for (size_t i = 0; i < qnt_questoes; i++)
     nota = (resposta[i] == gabarito[i]) ? nota + (10 / qnt_questoes) : nota;
-  // printf("%.2f\n", nota);
   return nota;
 }
 
