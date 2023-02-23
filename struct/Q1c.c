@@ -29,6 +29,9 @@ void recebe(funcio *pp, int qnt_funcionario) {
   printf("\n");
   imprima(&pp[index]);
   printf("\n");
+  altera(&pp[index]);
+  printf("\n");
+  getchar();
  }
 }
 
@@ -38,6 +41,7 @@ void imprima(funcio *pp){
 
 void altera(funcio *pp){
   printf("Salário atual do funcionário:%.2f\n",pp->salario);
+  printf("Novo salário: \n");
   scanf("%f", &pp->salario);
   printf("Salário do funcionário atualizado: %.2f", pp->salario);
 }
@@ -49,7 +53,6 @@ int main(void) {
     getchar();
     funcio *pp = (funcio *)malloc(qnt_funcionario * sizeof(funcio));
     recebe(pp, qnt_funcionario);
-    altera(pp);
     free(pp);
     return 0;
 }
