@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<locale.h>
+#include<string.h>
 
-typedef struct funcionario {
+typedef struct funcionario{
  float salario;
  char nome[100];
  char cargo[100];
@@ -46,6 +47,22 @@ void altera(funcio *pp){
   printf("Salário do funcionário atualizado: %.2f", pp->salario);
 }
 
+funcio menor_salario(funcio *pp, int qnt_funcionario) {
+  funcio menor = pp[0];
+  for (size_t i = 0; i < qnt_funcionario; i++)
+    menor = (pp[i].salario < menor.salario) ? pp[i] : menor;
+  menor.nome[strcspn(menor.nome, "\n")] = '\0';
+  return menor;
+}
+
+funcio maior_salario(funcio *pp, int qnt_funcionario) {
+  funcio maior = pp[0];
+  for (size_t i = 0; i < qnt_funcionario; i++)
+    maior = (pp[i].salario > maior.salario) ? pp[i] : maior;
+  maior.nome[strcspn(maior.nome, "\n")] = '\0';
+  return maior;
+}
+
 int main(void) {
     int qnt_funcionario;
     printf("Informe quantos funcionários foram selecionados: ");
@@ -53,6 +70,12 @@ int main(void) {
     getchar();
     funcio *pp = (funcio *)malloc(qnt_funcionario * sizeof(funcio));
     recebe(pp, qnt_funcionario);
+    funcio maior = maior_salario(pp, qnt_funcionario);
+  printf("\nMaior salário: %.2f\nfuncionário: %s \ncargo: %s", maior.salario,
+         maior.nome, maior.cargo);
+  funcio menor = menor_salario(pp, qnt_funcionario);
+  printf("\nMenor salário: %.2f\nfuncionario: %s \ncargo: %s", menor.salario,
+         menor.nome, menor.cargo);
     free(pp);
     return 0;
 }
