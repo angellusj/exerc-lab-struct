@@ -3,9 +3,9 @@
 #include <string.h>
 
 #define MAX_VAGAS 3
-// 3 alunos no mÃ¡ximo ^
+// 3 alunos no maximo
 #define MAX_TURMAS 3
-// 3 turmas no mÃ¡ximo ^
+// 3 turmas no maximo
 
 typedef struct aluno {
   int mat;
@@ -16,7 +16,7 @@ typedef struct aluno {
 
 typedef struct turma {
   char *id;  /* caractere que identifica a turma, por exemplo, A ou B */
-  int vagas; /* nÃºmeros de vagas disponÃ­veis para fechar a turma */
+  int vagas; /* numero de vagas disponiveis para fechar a turma */
   Aluno *alunos[MAX_VAGAS];
 } Turma;
 
@@ -37,8 +37,8 @@ int turmaVazia(){
 
 Turma *procura_turma(char *id) {
   for (size_t i = 0; i < MAX_TURMAS; i++) {
-    if (turmas[i]->id==NULL) break; // Evita acesso Ã  turmas vazias.
-    if (strcmp(turmas[i]->id, id) == 0) {      // Significa que sÃ£o iguais
+    if (turmas[i]->id==NULL) break; // Evita acesso a turmas vazias.
+    if (strcmp(turmas[i]->id, id) == 0) {      // Significa que sao iguais
       return turmas[i];
     }
   }
@@ -46,7 +46,7 @@ Turma *procura_turma(char *id) {
   return NULL;
 }
 
-void cria_turma() { // ProtÃ³tipo sem tipo de escopo
+void cria_turma() { // Prototipo sem tipo de escopo
   char *id = (char *)malloc(sizeof(char));
   printf("Criando nova turma... \n");
   printf("Digite um ID: ");
@@ -54,8 +54,8 @@ void cria_turma() { // ProtÃ³tipo sem tipo de escopo
   for (size_t i = 0; i < MAX_TURMAS; i++) { // Procura turma livre
     if (turmas[i]->id==NULL) { // Turma encontrada
       turmas[i]->id = (char *)malloc(sizeof(char));
-      turmas[i]->id = id; // Assimila id Ã  turma vazia.
-      turmas[i]->vagas = MAX_VAGAS; // DÃ¡ valores padrÃµes.
+      turmas[i]->id = id; // Assimila id a turma vazia.
+      turmas[i]->vagas = MAX_VAGAS; // Da valores padroes.
       for (size_t j = 0; j < MAX_VAGAS; j++)
         turmas[i]->alunos[j] = NULL; // NULL para todas as vagas
       printf("Turma %s criada com sucesso!\n", id);
@@ -81,12 +81,12 @@ void matricula_aluno() {
   }
   for (size_t i = 0; i < MAX_VAGAS; i++) { // Procurar a primeira vaga
     if (alvo->alunos[i] == NULL) { // Vaga encontrada
-      alvo->alunos[i] = malloc(sizeof(Aluno)); // Acolhe vaga, para preenchÃª-la em seguinte
+      alvo->alunos[i] = malloc(sizeof(Aluno)); // Acolhe vaga, para preenche-la em seguinte
       while (alvo->alunos[i]->mat<=0){
         printf("NÃºmero da matricula: ");
         obterNumero((long int*)&alvo->alunos[i]->mat, 10);
       }
-      getchar(); // por culpa do \n deixado pelo scanf, serve para pegÃ¡-lo
+      getchar(); // por culpa do \n deixado pelo scanf, serve para pega-lo
       printf("Nome do aluno: ");
       fgets(alvo->alunos[i]->nome,81,stdin);
       --alvo->vagas;
