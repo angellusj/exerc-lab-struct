@@ -28,17 +28,17 @@ void obterNumero(long int *holder,size_t size){
   char *b1 = (char*) malloc(sizeof(char)*size);
   char *ePTR;
   scanf(" %s",b1);
-  *holder = strtol(b1, &ePTR, 10); // Para evitar bugs quando passado letras.
+  *holder = strtol(b1, &ePTR, 10); /* Para evitar bugs quando passado letras */
 } /* scanf vai ler uma letra e o strtol ira converte-la em numero, caso tenha um numero ele retorna 0 */
 
 int turmaVazia(){
-  return (turmas[0]->id!=NULL) ? 0 : 1; //verifica 
+  return (turmas[0]->id!=NULL) ? 0 : 1; /* verifica se a turma está vazia ou preenchida */
 }
 
 Turma *procura_turma(char *id) {
   for (size_t i = 0; i < MAX_TURMAS; i++) {
-    if (turmas[i]->id==NULL) break; // Evita acesso a turmas vazias.
-    if (strcmp(turmas[i]->id, id) == 0) {      // Significa que sao iguais
+    if (turmas[i]->id==NULL) break; /* evita acesso a turmas vazias */
+    if (strcmp(turmas[i]->id, id) == 0) {      /* significa que sao iguais */
       return turmas[i];
     }
   }
@@ -46,47 +46,47 @@ Turma *procura_turma(char *id) {
   return NULL;
 }
 
-void cria_turma() { // Prototipo sem tipo de escopo
-  char *id = (char *)malloc(sizeof(char));
+void cria_turma() { /* prototipo sem tipo de escopo */
+  char *id = (char *)malloc(sizeof(char)); /* vetor para id */
   printf("Criando nova turma... \n");
   printf("Digite um ID: ");
   scanf(" %s",id);
-  for (size_t i = 0; i < MAX_TURMAS; i++) { // Procura turma livre
-    if (turmas[i]->id==NULL) { // Turma encontrada
+  for (size_t i = 0; i < MAX_TURMAS; i++) { /* procura turma livre */
+    if (turmas[i]->id==NULL) { /* turma encontrada */
       turmas[i]->id = (char *)malloc(sizeof(char));
-      turmas[i]->id = id; // Assimila id a turma vazia.
-      turmas[i]->vagas = MAX_VAGAS; // Da valores padroes.
+      turmas[i]->id = id; /* assimila id a turma vazia */
+      turmas[i]->vagas = MAX_VAGAS; /* da valores padroes */
       for (size_t j = 0; j < MAX_VAGAS; j++)
-        turmas[i]->alunos[j] = NULL; // NULL para todas as vagas
+        turmas[i]->alunos[j] = NULL; /* NULL para todas as vagas */
       printf("Turma %s criada com sucesso!\n", id);
       return;
     } else if(strcmp(turmas[i]->id,id)==0){
-      printf("Esta turma jÃ¡ foi registrada.\n");
+      printf("Esta turma ja foi registrada.\n");
       return;
     }
   }
-  printf("NÃ£o hÃ¡ mais espaÃ§o para novas turmas.\n");
+  printf("Nao ha mais espaço para novas turmas.\n");
 }
 
 void matricula_aluno() {
   char *id = (char *)malloc(sizeof(char));
   printf("Para realizar a matricula do aluno informe:\nID da turma: ");
   scanf(" %s", id);
-  Turma *alvo = procura_turma(id);
-  if (alvo==NULL)
+  Turma *alvo = procura_turma(id); /* ponteiro que temporariamente armazena a turma que esta sendo trabalhada */
+  if (alvo==NULL) 
     return;
-  if (alvo->vagas <= 0){
+  if (alvo->vagas <= 0){ /* verifica se todas as vagas foram preenchidas */
     printf("Vagas totalmente preenchidas.\n");
     return;
   }
-  for (size_t i = 0; i < MAX_VAGAS; i++) { // Procurar a primeira vaga
-    if (alvo->alunos[i] == NULL) { // Vaga encontrada
-      alvo->alunos[i] = malloc(sizeof(Aluno)); // Acolhe vaga, para preenche-la em seguinte
+  for (size_t i = 0; i < MAX_VAGAS; i++) { /* procurar a primeira vaga */
+    if (alvo->alunos[i] == NULL) { /* vaga encontrada
+      alvo->alunos[i] = malloc(sizeof(Aluno)); /* acolhe vaga, para preenche-la em seguinte */
       while (alvo->alunos[i]->mat<=0){
-        printf("NÃºmero da matricula: ");
+        printf("Numero da matricula: ");
         obterNumero((long int*)&alvo->alunos[i]->mat, 10);
       }
-      getchar(); // por culpa do \n deixado pelo scanf, serve para pega-lo
+      getchar(); /* por culpa do \n deixado pelo scanf, serve para pega-lo */
       printf("Nome do aluno: ");
       fgets(alvo->alunos[i]->nome,81,stdin);
       --alvo->vagas;
@@ -141,8 +141,8 @@ void imprime_alunos() {
 void imprime_turmas() {
   printf("Listando turmas, aguarde...\n");
   for (size_t i = 0; i<MAX_TURMAS; i++){
-    if (turmas[i]->id==NULL) return; // Parar de listar na primeira turma vazia.
-    printf("Turma %s - %i vagas disponÃ­veis\n",turmas[i]->id,turmas[i]->vagas);
+    if (turmas[i]->id==NULL) return; /* parar de listar na primeira turma vazia.
+    printf("Turma %s - %i vagas disponiveis\n",turmas[i]->id,turmas[i]->vagas);
   }
 }
 
@@ -151,7 +151,7 @@ int main (int argc, char *argv[])
   for (size_t i = 0; i < MAX_TURMAS; i++) {
     turmas[i] = (Turma*) malloc(sizeof(Turma));
     if (turmas[i]==NULL){
-      printf("Erro, sem memÃ³ria suficiente.\n");
+      printf("Erro, sem memoria suficiente.\n");
       return 1;
     }
   }
@@ -161,10 +161,10 @@ int main (int argc, char *argv[])
            "1 - Criar turma\n"
            "2 - Listar turmas\n"
            "3 - Matricular aluno\n"
-           "4 - LanÃ§ar notas\n"
+           "4 - Lancar notas\n"
            "5 - Listar alunos\n"
            "6 - Sair\n\n");
-    printf("Selecione uma opÃ§Ã£o: ");
+    printf("Selecione uma opcao: ");
     obterNumero((long int*)&opt, 3); printf("\n");
     if (opt>0 && opt<7){
       switch (opt) {
@@ -187,7 +187,7 @@ int main (int argc, char *argv[])
           break;
       }
     } else {
-      printf("Dite uma opÃ§Ã£o dentro das listadas.\n");
+      printf("Dite uma opcao dentro das listadas.\n");
     }
   }
   printf("Saindo...\n");
