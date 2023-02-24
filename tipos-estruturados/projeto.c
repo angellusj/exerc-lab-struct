@@ -24,7 +24,7 @@ Turma *turmas[MAX_TURMAS];
 
 
 void obterNumero(long int *holder,size_t size){
-  size = (!size) ? 100: size; /*
+  size = (!size) ? 100: size; /* se usuario nao passar no argumento entao o padrao e 100 */
   char *b1 = (char*) malloc(sizeof(char)*size);
   char *ePTR;
   scanf(" %s",b1);
@@ -103,20 +103,22 @@ void lanca_notas() {
   printf("Informe o ID da turma: ");
   scanf(" %s", id);
   Turma *alvo = procura_turma(id);
-  if (alvo==NULL) return;
-  if (alvo->vagas==MAX_VAGAS){
+  if (alvo==NULL) 
+  return;
+  if (alvo->vagas==MAX_VAGAS){ /* verifica se há vagas disponiveis */
     printf("Nenhum aluno matriculado nesta turma.\n");
     return;
   }
   for (size_t i = 0; i < MAX_VAGAS; i++){
-    if (alvo->alunos[i]==NULL) return;
-    printf("\nMatricula: %d \tAluno: %s\n", alvo->alunos[i]->mat, alvo->alunos[i]->nome);
+    if (alvo->alunos[i]==NULL) 
+    return;
+    printf("\nMatricula: %d \tAluno: %s\n", alvo->alunos[i]->mat, alvo->alunos[i]->nome); /* imprime a matricula e o nome de determinado aluno */
     for (size_t j = 0; j < 3; j++){
       printf("Digite a nota %lu: ",j+1);
-      scanf(" %f",&alvo->alunos[i]->notas[j]);
-      alvo->alunos[i]->media+=alvo->alunos[i]->notas[j];
+      scanf(" %f",&alvo->alunos[i]->notas[j]); /* le e armazena a nota do aluno */
+      alvo->alunos[i]->media+=alvo->alunos[i]->notas[j]; /* soma a nota do aluno com a media e atribui o valor na media */
     }
-    alvo->alunos[i]->media/=3;
+    alvo->alunos[i]->media/=3; /* realiza o calculo da media */
   }
 }
 
@@ -126,22 +128,24 @@ void imprime_alunos() {
   printf("Informe o ID da turma: ");
   scanf(" %s", id);
   Turma * alvo = procura_turma(id);
-  if (alvo == NULL) return;
-  if (alvo->vagas==MAX_VAGAS){
+  if (alvo == NULL) 
+  return;
+  if (alvo->vagas==MAX_VAGAS){ /* verifica se há vagas na turma */
     printf("Nenhum aluno matriculado nesta turma.\n");
     return;
   }
   for (size_t i = 0; i < MAX_VAGAS; i++){
-    if (alvo->alunos[i]==NULL) break;
-    printf("\nMatricula: %i \tNome: %s",alvo->alunos[i]->mat,alvo->alunos[i]->nome);
-    printf("Media: %.2f\n",alvo->alunos[i]->media);
+    if (alvo->alunos[i]==NULL) break; /* verifica se o aluno existe */
+    printf("\nMatricula: %i \tNome: %s",alvo->alunos[i]->mat,alvo->alunos[i]->nome); /* informaçoes do aluno */
+    printf("Media: %.2f\n",alvo->alunos[i]->media); /* media do aluno */
   }
 }
 
 void imprime_turmas() {
   printf("Listando turmas, aguarde...\n");
   for (size_t i = 0; i<MAX_TURMAS; i++){
-    if (turmas[i]->id==NULL) return; /* parar de listar na primeira turma vazia.
+    if (turmas[i]->id==NULL)
+    return; /* parar de listar na primeira turma vazia.
     printf("Turma %s - %i vagas disponiveis\n",turmas[i]->id,turmas[i]->vagas);
   }
 }
@@ -149,13 +153,13 @@ void imprime_turmas() {
 int main (int argc, char *argv[])
 {
   for (size_t i = 0; i < MAX_TURMAS; i++) {
-    turmas[i] = (Turma*) malloc(sizeof(Turma));
+    turmas[i] = (Turma*) malloc(sizeof(Turma)); /* vetor para armazenar as turmas */
     if (turmas[i]==NULL){
       printf("Erro, sem memoria suficiente.\n");
       return 1;
     }
   }
-  size_t opt = 0;
+  size_t opt = 0; /* variavel de controle das opçoes do menu */
   while (opt != 6) {
     printf("\nMENU:\n"
            "1 - Criar turma\n"
@@ -166,28 +170,28 @@ int main (int argc, char *argv[])
            "6 - Sair\n\n");
     printf("Selecione uma opcao: ");
     obterNumero((long int*)&opt, 3); printf("\n");
-    if (opt>0 && opt<7){
+    if (opt>0 && opt<7){ /* enquanto as opçoes estiverem entre 1 e 6 ira realizar as funçoes que forem selecionadas no menu */
       switch (opt) {
         case 1:
           cria_turma();
           break;
         case 2:
-          (turmaVazia()==0) ? imprime_turmas() : printf("Turmas vazias.\n");
+          (turmaVazia()==0) ? imprime_turmas() : printf("Turmas vazias.\n"); /* se a turma estiver disponivel realiza a funçao imprime_turmas, se nao avisa que a turma esta vazia */
           break;
         case 3:
-          (turmaVazia()==0) ? matricula_aluno() : printf("Turmas vazias.\n");
+          (turmaVazia()==0) ? matricula_aluno() : printf("Turmas vazias.\n"); /* se a turma estiver disponivel realiza a funçao matricula_aluno, se nao avisa que a turma esta vazia */
           break;
         case 4:
-          (turmaVazia()==0) ? lanca_notas() : printf("Turmas vazias.\n");
+          (turmaVazia()==0) ? lanca_notas() : printf("Turmas vazias.\n"); /* se a turma estiver disponivel realiza a funçao lanca_notas, se nao avisa que a turma esta vazia */
           break;
         case 5:
-          (turmaVazia()==0) ? imprime_alunos() : printf("Turmas vazias.\n");
+          (turmaVazia()==0) ? imprime_alunos() : printf("Turmas vazias.\n"); /* se a turma estiver disponivel realiza a funçao imprime_alunos, se nao avisa que a turma esta vazia */
           break;
-        case 6:
+        case 6: /* sai do menu */
           break;
       }
     } else {
-      printf("Dite uma opcao dentro das listadas.\n");
+      printf("Dite uma opcao dentro das listadas.\n"); /* aviso para caso tente escolher uma opçao que nao esteja no menu */
     }
   }
   printf("Saindo...\n");
