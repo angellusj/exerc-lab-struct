@@ -7,10 +7,10 @@
 #define MAX_TURMAS 3
 // 3 turmas no maximo
 
-typedef struct aluno {
+typedef struct aluno { /* struct do aluno */
   int mat;
-  char nome[81];
-  float notas[3];
+  char nome[81]; /* tamanho maximo do nome do aluno */
+  float notas[3]; /* quantidade de notas */
   float media;
 } Aluno;
 
@@ -24,15 +24,15 @@ Turma *turmas[MAX_TURMAS];
 
 
 void obterNumero(long int *holder,size_t size){
-  size = (!size) ? 100: size;
+  size = (!size) ? 100: size; /*
   char *b1 = (char*) malloc(sizeof(char)*size);
   char *ePTR;
   scanf(" %s",b1);
   *holder = strtol(b1, &ePTR, 10); // Para evitar bugs quando passado letras.
-}
+} /* scanf vai ler uma letra e o strtol ira converte-la em numero, caso tenha um numero ele retorna 0 */
 
 int turmaVazia(){
-  return (turmas[0]->id!=NULL) ? 0 : 1;
+  return (turmas[0]->id!=NULL) ? 0 : 1; //verifica 
 }
 
 Turma *procura_turma(char *id) {
